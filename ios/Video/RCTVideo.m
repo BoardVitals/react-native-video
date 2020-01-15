@@ -850,6 +850,11 @@ static int const RCTVideoUnset = -1;
 - (void)setIgnoreSilentSwitch:(NSString *)ignoreSilentSwitch
 {
   _ignoreSilentSwitch = ignoreSilentSwitch;
+  if([_ignoreSilentSwitch isEqualToString:@"ignore"]) {
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+  } else if([_ignoreSilentSwitch isEqualToString:@"obey"]) {
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+  }
   [self applyModifiers];
 }
 
